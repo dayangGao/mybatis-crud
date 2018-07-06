@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 加载DB连接属性文件-->
+	<properties resource="jdbc.properties"/>
+	<!-- 日志常量的设置 -->
+	<settings>
+		<setting name="logImpl" value="STDOUT_LOGGING"/>
+	</settings>
+	<!-- 配置实体类别名-->
+	<typeAliases>
+		<!-- <typeAlias type="com.bjsxt.pojo.Star" alias="Star"/> -->
+		<package name="com.bjsxt.pojo"/>
+	</typeAliases>
+	<!-- 配置运行环境-->
+	<environments default="mysqlEnv">
+		<environment id="mysqlEnv">
+			<!-- 配置事务管理器 -->
+			<transactionManager type="JDBC"></transactionManager>
+			<!-- 配置数据源 -->
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driver}"/>
+				<property name="url" value="${jdbc.url}"/>
+				<property name="username" value="${jdbc.username}"/>
+				<property name="password" value="${jdbc.password}"/>
+			</dataSource>
+		</environment>
+	</environments>
+	<!-- 注册映射文件-->
+	<mappers>
+		<mapper resource="com/bjsxt/mapper/IStarMapper.xml"/>
+	</mappers>
+</configuration>

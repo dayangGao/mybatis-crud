@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间：起到限定范围的作用 -->
+<mapper namespace="test"> 
+	<insert id="insertStar" parameterType="Star">
+		insert into star(name,age,score) values(#{name},#{age},#{score})
+	</insert>
+	
+	<!-- 获取刚插入的记录的id -->
+	<insert id="getInsertId">
+		insert into star(name,age,score) values(#{name},#{age},#{score})
+		<!--获得插入数据的id  拿到自增的主键值 -->
+		<selectKey resultType="int" keyProperty="id" order="AFTER">
+        select @@identity
+    </selectKey>
+	</insert>
+
+
+	<delete id="deleteStarById">
+		delete from star where id=#{id}
+	</delete>
+	
+	<update id="updateStar">
+		update star set name=#{name},age=#{age},score=#{score} where id=#{id} 
+	</update>
+	
+	<select id="selectAllStars" resultType="Star">
+		select id,name,age,score from star
+	</select>
+	<select id="selectStarById" resultType="Star">
+		select id,name,age,score from star where id=#{id}
+	</select>
+	<select id="selectByName" resultType="Star">
+		select id,name,age,score from star where name like '%' #{name} '%'
+		<!-- select id,name,age,score from star where name like concat('%',#{name},'%') -->
+		<!-- select id,name,age,score from star where name like '%${value}%' -->
+	</select>
+	
+</mapper>
